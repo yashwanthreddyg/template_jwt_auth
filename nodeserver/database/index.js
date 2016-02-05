@@ -33,7 +33,7 @@ database.findUserByUsername = function(uname, cb) {
     }
 };
 
-database.validateUser(uname, pswd, scb, ecb) {
+database.validateUser = function(uname, pswd, scb, ecb) {
     database.findUserByUsername(uname, function(res, err) {
         if (err) {
             ecb({
@@ -41,7 +41,10 @@ database.validateUser(uname, pswd, scb, ecb) {
             });
         } else {
             if (res.password == pswd) {
-                scb();
+                scb({
+                    _id:res._id,
+                    username:res.username
+                });
             } else {
                 ecb({
                     message: 'wrong password'
@@ -49,5 +52,5 @@ database.validateUser(uname, pswd, scb, ecb) {
             }
         }
     });
-}
+};
 module.exports = database;
