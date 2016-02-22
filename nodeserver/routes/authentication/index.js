@@ -1,8 +1,8 @@
 var express = require('express');
-var config = require('../../config.js');
+var config = require(process.cwd() + '/config.js');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-var db = require('../../database');
+var db = require(process.cwd() + '/database');
 var authorizer = require('./authtoken.js');
 
 router.post('/', function(req, res) {

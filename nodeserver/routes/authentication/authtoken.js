@@ -1,8 +1,9 @@
-var db = require('../../database');
-var config = require('../../config.js');
+var db = require(process.cwd() + '/database');
+var config = require(process.cwd() + '/config.js');
 var jwt = require('jsonwebtoken');
 var auth = {};
 auth.getToken = function(uname, pswd, scb, ecb) {
+    //console.log("cwd: "+process.cwd());
     var success = function(user) {
         var secret = config.appsecret;
         var token = jwt.sign(user, secret, {
@@ -23,7 +24,6 @@ auth.verifyToken = function(token, scb, ecb) {
         if (err) {
             ecb(err);
         } else {
-            // if everything is good, save to request for use in other routes
             scb(decoded);
         }
     });

@@ -1,15 +1,15 @@
 var express = require('express');
-var config = require('../../config.js');
+var config = require(process.cwd() + '/config.js');
 var router = express.Router();
-var database = require('../../database');
-var authorizer = require('../authentication/authtoken.js');
+var database = require(process.cwd() + '/database');
+var authorizer = require(process.cwd() + '/routes/authentication/authtoken.js');
 var jwt = require('jsonwebtoken');
 /* GET users listing. */
 router.use(function(req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
         var success = function(decoded) {
-            console.log("decoded: "+JSON.stringify(decoded));
+            console.log("decoded: " + JSON.stringify(decoded));
             req.decoded = decoded;
             next();
         }
@@ -28,6 +28,7 @@ router.use(function(req, res, next) {
     }
 });
 router.get('/', function(req, res, next) {
+    //console.log("cwd: "+process.cwd());
     res.json({
         message: 'welcome to the api'
     });

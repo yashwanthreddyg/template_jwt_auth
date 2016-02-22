@@ -15,7 +15,8 @@ var mock = [{
 database.getUsers = function(cb) {
     cb(mock);
 };
-database.findUserByUsername = function(uname, cb) {
+
+var findUserByUsername = function(uname, cb) {
     var user = undefined;
     for (var i in mock) {
         if (mock[i].username == uname) {
@@ -33,6 +34,10 @@ database.findUserByUsername = function(uname, cb) {
     }
 };
 
+database.registerUser = function(uname,pswd,scb,ecb){
+
+};
+
 database.validateUser = function(uname, pswd, scb, ecb) {
     database.findUserByUsername(uname, function(res, err) {
         if (err) {
@@ -42,8 +47,8 @@ database.validateUser = function(uname, pswd, scb, ecb) {
         } else {
             if (res.password == pswd) {
                 scb({
-                    _id:res._id,
-                    username:res.username
+                    _id: res._id,
+                    username: res.username
                 });
             } else {
                 ecb({
